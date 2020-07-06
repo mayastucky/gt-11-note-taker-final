@@ -9,6 +9,7 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static("public"));
 
 //sends the notes.html page when you go to that path
 app.get("/notes", (req, res) => {
@@ -16,17 +17,13 @@ app.get("/notes", (req, res) => {
 });
 
 app.get("/api/notes", function (req, res) {
-  return res.json(database);
+  res.json(database);
 });
 
 //CREATE NEW NOTE
 //final star wars activity (15)and the repo https://github.com/DreissenZulu/Express-Note-Taker was helpful for understanding the progress of logic for post requests!
 app.post("/api/notes", function (req, res) {
-  //read file
-
   var newNote = req.body;
-  //   newNote.routeName = newNote.name.replace(/\s+/g, "").toLowerCase();
-  //   console.log(newNote);
   database.push(newNote);
   console.log(database);
   res.json(database);
