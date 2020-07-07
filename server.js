@@ -38,6 +38,22 @@ app.post("/api/notes", function (req, res) {
   });
 });
 
+// app.delete("/api/notes/:id", function (req, res) {
+//   fs.readFile("./db/db.json", (err, data) => {
+//     if (err) throw err;
+//     database = JSON.parse(data);
+  
+//     const { par } = req;
+//     const objID = par.id;
+//     const filterNotes = database.filter((note) => note.id != objID);
+
+//     fs.writeFile("./db/db.json", JSON.stringify(filterNotes), "utf8", (err) => {
+//       if (err) throw err;
+//       res.json(filterNotes);
+//     });
+//   });
+// });
+
 //PLEASE PUT THIS LAST
 //sends you to the homepage in any other instance
 app.get("*", (req, res) => {
