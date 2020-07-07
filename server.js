@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require("path");
-const database = require("./db/db.json");
+let database = require("./db/db.json");
 const fs = require("fs");
 
 const app = express();
@@ -23,12 +23,18 @@ app.get("/api/notes", function (req, res) {
 //CREATE NEW NOTE
 //final star wars activity (15)and the repo https://github.com/DreissenZulu/Express-Note-Taker was helpful for understanding the progress of logic for post requests!
 app.post("/api/notes", function (req, res) {
-  var newNote = req.body;
-  database.push(newNote);
-  console.log(database);
-  res.json(database);
-  fs.writeFileSync("./db/db.json", JSON.stringify(database), (err) => {
+  fs.readFile("./db/db.json", "utf8", (err, data) => {
     if (err) throw err;
+    database = JSON.parse(data);
+    var newNote = req.body;
+    database.push(newNote);
+    database.forEach((obj, i) => (obj.id = ++i));
+    console.log(database);
+
+    fs.writeFile("./db/db.json", JSON.stringify(database), "utf8", (err) => {
+      if (err) throw err;
+      res.json(database);
+    });
   });
 });
 
