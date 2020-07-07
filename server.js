@@ -38,7 +38,21 @@ app.post("/api/notes", function (req, res) {
   });
 });
 
+
+// ONE DELETE ATTEMPT
 // app.delete("/api/notes/:id", function (req, res) {
+//   fs.readFile("./db/db.json", "utf8", (err, data) => {
+//     if (err) throw err;
+//     arrayOfNotes = JSON.parse(data);
+//     const filterNotes = arrayOfNotes.filter(function (note) {
+//       return note.id != req.params.id;
+//     });
+
+//END OF DELETE ATTEMPT
+
+   
+//ATTEMPT 2
+    // app.delete("/api/notes/:id", function (req, res) {
 //   fs.readFile("./db/db.json", (err, data) => {
 //     if (err) throw err;
 //     database = JSON.parse(data);
@@ -46,6 +60,14 @@ app.post("/api/notes", function (req, res) {
 //     const { par } = req;
 //     const objID = par.id;
 //     const filterNotes = database.filter((note) => note.id != objID);
+
+//     fs.writeFile("./db/db.json", JSON.stringify(filterNotes), "utf8", (err) => {
+//       if (err) throw err;
+//       res.json(filterNotes);
+//     });
+//   });
+// });
+//END OF ATTEMPT 2
 
 //     fs.writeFile("./db/db.json", JSON.stringify(filterNotes), "utf8", (err) => {
 //       if (err) throw err;
