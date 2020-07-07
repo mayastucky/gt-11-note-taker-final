@@ -4,6 +4,8 @@
 
 This application uses express to create an online note taker that allows the user to create and delete their notes and have them saved into a database.
 
+![Deployed App](notetaker.png)
+
 ## Installation
 
 Run "npm install" after cloning down the repository. Then, run node server.js in your terminal. Click on the link that shows up in your terminal or go to http://localhost:3000 in your browser.
@@ -28,7 +30,7 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-URLs
+## URLs
 
 [GitHub Repo](https://github.com/mayastucky/gt-11-note-taker-final)
 
