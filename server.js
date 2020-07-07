@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("path");
+//we need to reload this method 
 let database = require("./db/db.json");
 const fs = require("fs");
 
@@ -17,7 +18,12 @@ app.get("/notes", (req, res) => {
 });
 
 app.get("/api/notes", function (req, res) {
-  res.json(database);
+  //we need to read this file so that the database method is run properly
+  fs.readFile("./db/db.json", "utf8", (err, data) => {
+    if (err) throw err;
+    database = JSON.parse(data);
+    res.json(database);
+  });
 });
 
 //CREATE NEW NOTE
@@ -28,6 +34,7 @@ app.post("/api/notes", function (req, res) {
     database = JSON.parse(data);
     var newNote = req.body;
     database.push(newNote);
+    //https://stackoverflow.com/questions/33763768/loop-through-array-of-values-with-arrow-function
     database.forEach((obj, i) => (obj.id = ++i));
     console.log(database);
 
@@ -38,43 +45,26 @@ app.post("/api/notes", function (req, res) {
   });
 });
 
+//DELETE!!
+//this deletes it from the DB but does not render it on the page
+app.delete("/api/notes/:id", function (req, res) {
+  fs.readFile("./db/db.json", "utf8", (err, data) => {
+    if (err) {
+      throw err;
+    }
+    const arrayOfNotes = JSON.parse(data);
+    const notDeleted = arrayOfNotes.filter(function (note) {
+      return note.id != req.params.id;
+    });
 
-// ONE DELETE ATTEMPT
-// app.delete("/api/notes/:id", function (req, res) {
-//   fs.readFile("./db/db.json", "utf8", (err, data) => {
-//     if (err) throw err;
-//     arrayOfNotes = JSON.parse(data);
-//     const filterNotes = arrayOfNotes.filter(function (note) {
-//       return note.id != req.params.id;
-//     });
-
-//END OF DELETE ATTEMPT
-
-   
-//ATTEMPT 2
-    // app.delete("/api/notes/:id", function (req, res) {
-//   fs.readFile("./db/db.json", (err, data) => {
-//     if (err) throw err;
-//     database = JSON.parse(data);
-  
-//     const { par } = req;
-//     const objID = par.id;
-//     const filterNotes = database.filter((note) => note.id != objID);
-
-//     fs.writeFile("./db/db.json", JSON.stringify(filterNotes), "utf8", (err) => {
-//       if (err) throw err;
-//       res.json(filterNotes);
-//     });
-//   });
-// });
-//END OF ATTEMPT 2
-
-//     fs.writeFile("./db/db.json", JSON.stringify(filterNotes), "utf8", (err) => {
-//       if (err) throw err;
-//       res.json(filterNotes);
-//     });
-//   });
-// });
+    //does not work quite right
+    fs.writeFile("./db/db.json", JSON.stringify(notDeleted), "utf8", (err) => {
+      if (err) throw err;
+      //i think error is here?
+      res.json(notDeleted);
+    });
+  });
+});
 
 //PLEASE PUT THIS LAST
 //sends you to the homepage in any other instance
